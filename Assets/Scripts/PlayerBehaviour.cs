@@ -44,19 +44,19 @@ public class PlayerBehaviour : MonoBehaviour
 
     void OnShooting()
     {
-        Debug.Log(energyCount);
+        // Debug.Log(ObjectPooling.instance.);
         if(energyCount <= 1)
         {
             for(int i = -1; i <= 1; i+=2)
             {   
-                GameObject bulletClone1 = ObjectPooling.instance.GetPoolObject();
+                GameObject bulletClone1 = ObjectPooling.instance.GetPoolObject(PoolObjectType.Bullet);
                 if (bulletClone1 != null)
                 {
                     bulletClone1.transform.position = firePos1.transform.position + Vector3.right * (i*0.13f);
                     bulletClone1.transform.rotation = transform.rotation;
                     bulletClone1.SetActive(true);
                 }
-                GameObject bulletClone2 = ObjectPooling.instance.GetPoolObject();
+                GameObject bulletClone2 = ObjectPooling.instance.GetPoolObject(PoolObjectType.Bullet);
                 if (bulletClone2 != null)
                 {
                     bulletClone2.transform.position = firePos2.transform.position + Vector3.right * (i*0.13f);
@@ -70,7 +70,7 @@ public class PlayerBehaviour : MonoBehaviour
             if(energyCount == 3) reloadSpeed = 0.1f;
             for(int i = -1; i <= 1; i+=1)
             {   
-                GameObject bulletClone1 = ObjectPooling.instance.GetPoolObject();
+                GameObject bulletClone1 = ObjectPooling.instance.GetPoolObject(PoolObjectType.Bullet);
                 if (bulletClone1 != null)
                 {
                     bulletClone1.transform.position = firePos1.transform.position;
@@ -79,7 +79,7 @@ public class PlayerBehaviour : MonoBehaviour
                     bulletClone1.transform.rotation = transform.rotation;
                     bulletClone1.SetActive(true);
                 }
-                GameObject bulletClone2 = ObjectPooling.instance.GetPoolObject();
+                GameObject bulletClone2 = ObjectPooling.instance.GetPoolObject(PoolObjectType.Bullet);
                 if (bulletClone2 != null)
                 {
                     bulletClone2.transform.position = firePos2.transform.position;
@@ -94,6 +94,22 @@ public class PlayerBehaviour : MonoBehaviour
         {
             ChangePlane();
             transfer = true;
+        }
+        else{
+            GameObject bulletClone1 = ObjectPooling.instance.GetPoolObject(PoolObjectType.BulletCircle);
+                if (bulletClone1 != null)
+                {
+                    bulletClone1.transform.position = firePos1.transform.position;
+                    bulletClone1.transform.rotation = transform.rotation;
+                    bulletClone1.SetActive(true);
+                }
+                GameObject bulletClone2 = ObjectPooling.instance.GetPoolObject(PoolObjectType.BulletCircle);
+                if (bulletClone2 != null)
+                {
+                    bulletClone2.transform.position = firePos2.transform.position;
+                    bulletClone2.transform.rotation = transform.rotation;
+                    bulletClone2.SetActive(true);
+                }
         }
     }
     void ChangePlane()

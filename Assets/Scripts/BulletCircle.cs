@@ -12,7 +12,7 @@ public class BulletCircle : MonoBehaviour
         transform.DOScale(new Vector3(5, 5, 5), 2f);
         if (!IsVisibleToCamera())
         {
-            gameObject.SetActive(false);
+            ObjectPooling.instance.CoolObject(gameObject, PoolObjectType.BulletCircle);
         }
     }
 
@@ -24,6 +24,6 @@ public class BulletCircle : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.CompareTag("Enemy"))
-            gameObject.SetActive(false);
+            ObjectPooling.instance.CoolObject(gameObject, PoolObjectType.BulletCircle);
     }
 }

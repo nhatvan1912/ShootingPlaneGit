@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
         transform.Translate(Vector2.up*speed*Time.deltaTime);
         if (!IsVisibleToCamera())
         {
-            gameObject.SetActive(false);
+            ObjectPooling.instance.CoolObject(gameObject, PoolObjectType.Bullet);
         }
     }
 
@@ -22,6 +22,6 @@ public class Bullet : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.CompareTag("Enemy"))
-            gameObject.SetActive(false);
+            ObjectPooling.instance.CoolObject(gameObject, PoolObjectType.Bullet);
     }
 }
