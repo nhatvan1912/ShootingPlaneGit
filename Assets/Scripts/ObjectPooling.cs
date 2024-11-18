@@ -19,16 +19,19 @@ public class PoolInfo
     [HideInInspector]
     public List<GameObject> pools = new List<GameObject>();
 }
-public class ObjectPooling : Singleton<ObjectPooling>
+public class ObjectPooling : MonoBehaviour
 {
     [SerializeField]
-    List<PoolInfo> listOfPoolInfo;
+    public List<PoolInfo> listOfPoolInfo;
     
     private Vector3 defaultPos = new Vector3(-100, -100, -100);
-   
+    public static ObjectPooling instance;
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (instance == null)  
+        {
+            instance = this;
+        }
     }
     void Start()
     {
@@ -59,18 +62,6 @@ public class ObjectPooling : Singleton<ObjectPooling>
         return null;
     }
 
-    public void CoolObject(GameObject obj, PoolObjectType type)
-    {
-        obj.SetActive(false);
-        obj.transform.position = defaultPos;
-
-        PoolInfo selected = GetPoolByType(type);
-        List<GameObject> pools = selected.pools;
-        if(!pools.Contains(obj))
-        {
-            pools.Add(obj);
-        }
-    }
     public GameObject GetPoolObject(PoolObjectType type)
     {
         PoolInfo selected = GetPoolByType(type);
@@ -83,8 +74,23 @@ public class ObjectPooling : Singleton<ObjectPooling>
         }
         else{
             obj = Instantiate(selected.prefab, selected.container.transform);
+
         }
         return obj;
+    }
+
+    public void CoolObject(GameObject obj, PoolObjectType type)
+    {
+        
+        obj.SetActive(false);
+        obj.transform.position = defaultPos;
+
+        PoolInfo selected = GetPoolByType(type);
+        List<GameObject> pools = selected.pools;
+        if(!pools.Contains(obj))
+        {
+            pools.Add(obj);
+        }
     }
 
 }
