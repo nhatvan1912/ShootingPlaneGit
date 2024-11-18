@@ -135,6 +135,6 @@ MonoBehaviour:
   idleAnimationName: idle_offset
   attack1AnimationName: Attack 1_offset
   attack2AnimationName: Attack 2_offset
-  waitAttack: 2.5
+  waitAttack: 2
   moveDownDistance: 1
   moveSpeed: 2
