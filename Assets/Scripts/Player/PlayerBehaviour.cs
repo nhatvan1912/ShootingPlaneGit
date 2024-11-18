@@ -140,8 +140,27 @@ public class PlayerBehaviour : MonoBehaviour
         {
             animator.Play("Plane2_appear");
             AudioManager.instance.Play("win");
+            
+            StartCoroutine(WaitForAnimationToFinish("Plane2_appear"));
         }
     }
+    IEnumerator WaitForAnimationToFinish(string animationName)
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        while (!stateInfo.IsName(animationName))
+        {
+            yield return null;
+            stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        }
+
+        while (stateInfo.normalizedTime < 1f)
+        {
+            yield return null;
+            stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        }
+    }
+
     bool canTurnRed = true;
     void OnCollisionEnter2D(Collision2D other)
     {
