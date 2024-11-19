@@ -88,7 +88,7 @@ public class SetupManager : MonoBehaviour
     void MoveEnemyDown(GameObject enemy)
     {
         if(enemy != null)
-            enemy.transform.DOMoveY(enemy.transform.position.y - moveDistanceF2, timeDurationF2).SetEase(Ease.Linear);
+            enemy.transform.DOMoveY(enemy.transform.position.y - moveDistanceF2, timeDurationF2).SetEase(Ease.Linear).OnKill(() => {});
     }
 
     void ThirdWave()
